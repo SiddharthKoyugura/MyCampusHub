@@ -60,6 +60,7 @@ def admin_only(f):
 def home():
     return render_template("home.html")
 
+
 @app.route("/emp", methods=["POST"])
 def emp():
     if request.method == "POST":
