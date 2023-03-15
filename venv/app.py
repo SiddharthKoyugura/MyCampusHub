@@ -95,7 +95,9 @@ def stu():
         flash("User not exists")
         return redirect(url_for("login"))
     
-# @app.route("/")
+@app.route("/attendance")
+def attendance():
+    return render_template("attendance.html")
 
 if __name__ == "__main__":
     app.run(host="localhost", port=3000, debug=True)
