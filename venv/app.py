@@ -14,7 +14,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Student(UserMixin, db.Model):
-    __tablename__ = "Users"
+    __tablename__ = "students"
     sid = db.Column(db.Integer, primary_key=True)
     
     name = db.Column(db.Text, unique=True, nullable=False)
@@ -22,7 +22,7 @@ class Student(UserMixin, db.Model):
     password = db.Column(db.Text, nullable=False)
 
 class Employee(UserMixin, db.Model):
-    __tablename__ = "Employees"
+    __tablename__ = "employees"
     eid = db.Column(db.Integer, primary_key=True)
     sub_id = db.Column(db.Integer, unique=True)
     name = db.Column(db.Text, unique=True, nullable=False)
@@ -30,10 +30,15 @@ class Employee(UserMixin, db.Model):
     password = db.Column(db.Text, unique=False)
 
 class Subject(db.Model):
-    __tablename__ = "Subjects"
+    __tablename__ = "subjects"
     sub_id = db.Column(db.Integer, primary_key=True)
     sub_name = db.Column(db.Text, unique=True, nullable=False)
     
+# class Notes(db.Model):
+#     __tablename__ = "notes"
+#     sub_id = db.Column(db.Integer, primary_key=True)
+#     sub_name = db.Coumn(db.Text, unique=True, nullable=False)
+
 
 
 # db.create_all()
