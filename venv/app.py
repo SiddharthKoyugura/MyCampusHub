@@ -142,14 +142,10 @@ def attendance():
 @app.route("/add_attendance")
 def add_attendance():
     return render_template("add_attendance.html")
-@app.route("/student_form")
-def student_form():
-    return render_template("student_form.html")
-@app.route("/employee_form")
-def employee_form():
-    return render_template("employee_form.html")
 
-
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 @app.route("/add-student")
 def add_student():
@@ -189,7 +185,6 @@ def student_form():
             mobile=mobile,
             course=course,
             branch=branch,
-            father_name=father_name,
             caste=caste,
             eamcet_rank=eamcet_rank,
             bank=bank,
