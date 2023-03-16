@@ -62,7 +62,7 @@ class Employee(UserMixin, db.Model):
 #     __tablename__ = "subjects"
 #     sub_id = db.Column(db.Integer, primary_key=True)
 #     sub_name = db.Column(db.Text, unique=True, nullable=False)
-    
+
 # class Notes(db.Model):
 #     __tablename__ = "notes"
 #     sub_id = db.Column(db.Integer, primary_key=True)
@@ -142,10 +142,96 @@ def attendance():
 @app.route("/add_attendance")
 def add_attendance():
     return render_template("add_attendance.html")
+@app.route("/student_form")
+def student_form():
+    return render_template("student_form.html")
+@app.route("/employee_form")
+def employee_form():
+    return render_template("employee_form.html")
+
+
 
 @app.route("/add-student")
 def add_student():
     return ""
+
+@app.route("/student-form", methods=["GET", "POST"])
+def student_form():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        mobile = request.form.get("mobile")
+        course = request.form.get("course")
+        branch = request.form.get("branch")
+        caste = request.form.get("caste")
+        eamcet_rank = request.form.get("eamcet_rank")
+        bank = request.form.get("bank")
+        aadhar = request.form.get("aadhar")
+        ration_card = request.form.get("ration_card")
+        address = request.form.get("address")
+        father_name = request.form.get("father_name")
+        mother_name = request.form.get("mother_name")
+        father_mobile = request.form.get("father_mobile")
+        mother_mobile = request.form.get("mother_mobile")
+        annual_income = request.form.get("annual_income")
+        father_mail = request.form.get("father_mail")
+        mother_mail = request.form.get("mother_mail")
+        father_occupation = request.form.get("father_occupation")
+        mother_occupation = request.form.get("mother_occupation")
+        profile = request.form.get("profile")
+        nationality = request.form.get("nationality")
+
+        new_student = Student(
+            name=name,
+            email=email,
+            password=password,
+            mobile=mobile,
+            course=course,
+            branch=branch,
+            father_name=father_name,
+            caste=caste,
+            eamcet_rank=eamcet_rank,
+            bank=bank,
+            aadhar=aadhar,
+            ration_card=ration_card,
+            address=address,
+            father_name=father_name,
+            mother_name=mother_name,
+            father_mobile=father_mobile,
+            mother_mobile=mother_mobile,
+            annual_income=annual_income,
+            father_mail=father_mail,
+            mother_mail=mother_mail,
+            father_occupation=father_occupation,
+            mother_occupation=mother_occupation,
+            profile=profile,
+            nationality=nationality
+        )
+
+        db.session.add(new_student)
+        db.session.commit()
+        return redirect(url_for("student-form"))
+
+    return render_template("student_form.html")
+
+@app.route("/emp-form", methods=["GET", "POST"])
+def emp_form():
+    if request.method=="POST":
+        new_emp = Employee(
+            sub_id = request.form.get("sub_id"),
+            name = request.form.get("name"),
+            email = request.form.get("email"),
+            password = request.form.get("password"),
+            department = request.form.get("department"),
+            qualification = request.form.get("qualification"),
+            gender = request.form.get("gender")
+        )
+        db.session.add(new_emp)
+        db.session.commit()
+        return redirect(url_for("emp_form"))
+
+    return render_template("emp_form.html")
 
 @app.route("/logout")
 def logout():
