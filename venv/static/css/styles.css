@@ -1,4 +1,6 @@
-
+body{
+   background  : linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
 .rid{
     display: inline-flex;
@@ -156,7 +158,6 @@
     font-size: .75em;
     transition: color .3s ease-out;
    }
-<<<<<<< HEAD
    input[type="submit"]{
     background-color: #1c6b51;
     color: white;
@@ -165,23 +166,8 @@
     border-radius: 5px;
    }
    
-=======
-   input[type="submit"] {
-    background-color: #1c6b51; 
-    color: white; 
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px; 
-    }
-  
->>>>>>> 0b9dc44b6339d681172c3c4fd4e1ae91ab5a9eb3
    
    .btn-link:hover {
     color: #ffeba7;
    }
-
-<<<<<<< HEAD
-   
-=======
->>>>>>> 0b9dc44b6339d681172c3c4fd4e1ae91ab5a9eb3
    
