@@ -8,10 +8,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
-      #mynavbar{
-        position: sticky;
-        top: 0px;}
-    </style>
+    body{
+      position: relative;
+      top: 0px;
+  }
+  #mynavbar{
+      position: sticky;
+      top: 0px;
+  }
+  #marks{padding-top: 150px;height: 500px;}
+  #timetable{padding-top: 150px;height: 500px;}
+  #monthly{padding-top: 150px;height: 500px;}
+  #period{padding-top:300px;height: 1200px;}
+  #tillnow{padding-top: 110px;height: 400px;c}
+  #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid black;
+      padding: 20px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+      input[type="submit"], button
+     {
+        width: 77px;
+        height: 27px;
+        position: relative;
+        left: 100px;
+        border:solid;
+    }
+ 
+  </style>
+
  </head>
     <body data-spy="scroll" data-target="#mynavbar" data-offset="0">
       <nav  id= mynavbar class="navbar navbar-expand-lg bg-body-tertiary">
@@ -50,5 +92,3 @@
             </div>
           </div>
     </nav>
-
-      
