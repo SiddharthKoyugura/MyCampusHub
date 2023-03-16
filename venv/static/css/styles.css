@@ -158,17 +158,16 @@ body{
     font-size: .75em;
     transition: color .3s ease-out;
    }
-   input[type="submit"] {
-    background-color: #1c6b51; 
-    color: white; 
+   input[type="submit"]{
+    background-color: #1c6b51;
+    color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px; 
-    }
-  
+    border-radius: 5px;
+   }
+   
    
    .btn-link:hover {
     color: #ffeba7;
    }
-
    
