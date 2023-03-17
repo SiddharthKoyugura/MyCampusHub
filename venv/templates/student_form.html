@@ -1,25 +1,13 @@
+{% include "header.html" %}
 
-{% include "header.html"%}
-            <div id="bg">
+   <div id="bg">
                 <br />
-                <b><u> <h1>STUDENT FORM</h1></u>
+                <b><u> <h1>BIO DATA</h1></u>
                 </b>
                 <div id="form">
                     <form method="post" action="{{ url_for('student_form') }}" enctype="multipart/form-data">
                         <table id="table">
-                            <tr>
-                                <td>PROFILE:</td>
-                                <td>
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        size="30"
-                                        maxlength="30"
-                                        accept="image/x-png,image/gif,image/jpeg,image/jpg,image/png"
-                                    />
-                                   
-                                </td>
-                            </tr>
+                            
                             <tr>
                                 <td>STUDENT NAME:</td>
                                 <td>
@@ -52,6 +40,7 @@
                                 <td><input type="password" name="password"/></td>
                                 
                             </tr>
+                            
                                 
                             <tr>
                                 <td>MOBILE NO:</td>
@@ -66,16 +55,22 @@
                                     (10 digits number)
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td>COURSE:</td>
                                 <td>
-                                    <input
-                                        type="text"
-                                        name="course"
-                                        size="30"
-                                        maxlength="12"
+                                    <select id="cars" name="cars" >
+                                      <option value="AI-ML">AI-ML</option>
+                                      <option value="DS">DS</option>
+                                      <option value="CSE">CSE</option>
+                                      <option value="ECE">ECE</option>
+                                      <option value="MECHANICAL">MECHANICAL</option>
+                                      
+                                    </select>
+                                        
+                                        
                                 
-                                    />
+                                    
                                     
                                 </td>
                             </tr>
@@ -117,6 +112,19 @@
                                             placeholder="Enter Eamcet rank"
                                         />
                                         
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>PROFILE:</td>
+                                    <td>
+                                        <input
+                                            type="file"
+                                            name="image"
+                                            size="30"
+                                            maxlength="30"
+                                            accept="image/x-png,image/gif,image/jpeg,image/jpg,image/png"
+                                        />
+                                       
                                     </td>
                                 </tr>
                                 <tr>
@@ -299,5 +307,10 @@
                                     </div>
                                 </div>
 
-{% include "footer.html"%}
+
                                             
+
+
+  </div> 
+</form>
+{% include "footer.html" %}
