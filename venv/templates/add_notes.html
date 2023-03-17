@@ -1,0 +1,46 @@
+{% include "header.html" %}
+
+<div id="bg">
+    <br />
+    <b><u> <header>UPLOAD NOTES</header></u>
+    </b>
+    <div id="form">
+        <form action="{{ url_for('add_notes') }}" method="post" style="border:1px solid #ccc" enctype="multipart/form-data">
+            <table id="table">
+                <tr>
+                    <td>Subject ID:</td>
+                    <td>
+                        <select name="sub_id" required>
+                            <option disabled selected>Select Subject</option>
+                            <option value="100">ML</option>
+                            <option value="101">AI</option>
+                            <option value="102">OS</option>
+                            <option value="103">DBMS</option>
+                        </select>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>Notes:</td>
+                    <td>
+                        <input
+                            type="file"
+                            name="notes"
+                            size="30"
+                            maxlength="30"
+                            accept="application/pdf"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        
+                        <input type="submit" value="Submit" style="height: 50px;width: 250px;line-height: 20px;">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+{% include "footer.html" %}

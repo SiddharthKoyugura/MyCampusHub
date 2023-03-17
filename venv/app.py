@@ -64,14 +64,15 @@ class Employee(UserMixin, db.Model):
 #     sub_id = db.Column(db.Integer, primary_key=True)
 #     sub_name = db.Column(db.Text, unique=True, nullable=False)
 
-# class Notes(db.Model):
-#     __tablename__ = "notes"
-#     sub_id = db.Column(db.Integer, primary_key=True)
-#     sub_name = db.Coumn(db.Text, unique=True, nullable=False)
-
+class Notes(db.Model):
+    __tablename__ = "notes"
+    nid = db.Column(db.Integer, primary_key=True)
+    sub_id = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.Text, unique=False, nullable=False)
 
 with app.app_context():
     db.create_all()
+
 
 def is_emp():
     if current_user.eid:
@@ -97,45 +98,12 @@ def load_user(user_id):
     except:
         return Employee.query.get(user_id)
 
+# Home route
 @app.route("/")
 def home():
     return render_template("home.html")
 
-
-@app.route("/emp", methods=["POST"])
-def emp():
-    if request.method == "POST":
-        email = request.form.get("email")
-        user = Employee.query.filter_by(email=email).first()
-        if user:
-            password = request.form.get("password")
-            if user.password == password:
-                login_user(user)
-                return redirect(url_for("home"))
-
-            flash("Invalid password")
-            return redirect(url_for("login"))
-
-        flash("User not registered with email!")
-        return redirect(url_for("login"))
-
-    # return render_template("login.html", logged_in=current_user.is_authenticated)
-
-@app.route("/stu", methods=["POST"])
-def stu():
-    if request.method == "POST":
-        email = request.form.get("email")
-        user = Student.query.filter_by(email=email).form()
-        if user:
-            pwd = request.form.get("pwd")
-            if user.password == pwd:
-                login_user(user)
-                return redirect(url_for("home"))
-            flash("Invalid Password")
-            return redirect(url_for("login"))
-        flash("User not exists")
-        return redirect(url_for("login"))
-    
+# Attendance section
 @app.route("/attendance")
 def attendance():
     return render_template("attendance.html")
@@ -144,15 +112,24 @@ def attendance():
 def add_attendance():
     return render_template("add_attendance.html")
 
+# Notes routes
+@app.route("/add-notes", methods=["GET", "POST"])
+def add_notes():
+    if request.method == "POST":
+        new_notes = Notes(
+            sub_id=int(request.form.get("sub_id")),
+            notes=request.files["notes"].read()
+        )
+        db.session.add(new_notes)
+        db.session.commit()
+        return redirect(url_for("add_notes"))
+    return render_template("add_notes.html")
 
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+@app.route("/notes")
+def notes():
+    return render_template("notes.html")
 
-@app.route("/add-student")
-def add_student():
-    return ""
-
+# Student
 @app.route("/student-form", methods=["GET", "POST"])
 def student_form():
     if request.method == "POST":
@@ -212,6 +189,26 @@ def student_form():
 
     return render_template("student_form.html")
 
+@app.route("/stu", methods=["POST"])
+def stu():
+    if request.method == "POST":
+        email = request.form.get("email")
+        user = Student.query.filter_by(email=email).form()
+        if user:
+            pwd = request.form.get("pwd")
+            if user.password == pwd:
+                login_user(user)
+                return redirect(url_for("home"))
+            flash("Invalid Password")
+            return redirect(url_for("login"))
+        flash("User not exists")
+        return redirect(url_for("login"))
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+# Employee
 @app.route("/emp-form", methods=["GET", "POST"])
 def emp_form():
     if request.method=="POST":
@@ -229,6 +226,25 @@ def emp_form():
         return redirect(url_for("emp_form"))
 
     return render_template("emp_form.html")
+
+@app.route("/emp", methods=["POST"])
+def emp():
+    if request.method == "POST":
+        email = request.form.get("email")
+        user = Employee.query.filter_by(email=email).first()
+        if user:
+            password = request.form.get("password")
+            if user.password == password:
+                login_user(user)
+                return redirect(url_for("home"))
+
+            flash("Invalid password")
+            return redirect(url_for("login"))
+
+        flash("User not registered with email!")
+        return redirect(url_for("login"))
+
+    # return render_template("login.html", logged_in=current_user.is_authenticated)
 
 @app.route("/logout")
 def logout():
