@@ -50,7 +50,7 @@ class Student(UserMixin, db.Model):
 class Employee(UserMixin, db.Model):
     __tablename__ = "employees"
     eid = db.Column(db.Integer, primary_key=True)
-    sub_id = db.Column(db.Integer, unique=True)
+    sub_id = db.Column(db.Integer, nullable=False)
     name = db.Column(db.Text, unique=True, nullable=False)
     email = db.Column(db.Text, unique=False, nullable=False)
     password = db.Column(db.Text, unique=False)
@@ -220,7 +220,7 @@ def emp_form():
             password = request.form.get("password"),
             department = request.form.get("department"),
             qualification = request.form.get("qualification"),
-            gender = request.form.get("gender")
+            gender = request.form.get("gender"),
         )
         db.session.add(new_emp)
         db.session.commit()
