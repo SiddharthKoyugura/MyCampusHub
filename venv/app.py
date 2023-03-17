@@ -2,12 +2,13 @@ from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
 from functools import wraps
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "ProjectBuiltByTeamTerminators"
-
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 # Database config
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -50,7 +51,7 @@ class Student(UserMixin, db.Model):
 class Employee(UserMixin, db.Model):
     __tablename__ = "employees"
     eid = db.Column(db.Integer, primary_key=True)
-    sub_id = db.Column(db.Integer, unique=True)
+    sub_id = db.Column(db.Integer, nullable=False)
     name = db.Column(db.Text, unique=True, nullable=False)
     email = db.Column(db.Text, unique=False, nullable=False)
     password = db.Column(db.Text, unique=False)
@@ -69,8 +70,8 @@ class Employee(UserMixin, db.Model):
 #     sub_name = db.Coumn(db.Text, unique=True, nullable=False)
 
 
-
-# db.create_all()
+with app.app_context():
+    db.create_all()
 
 def is_emp():
     if current_user.eid:
@@ -176,7 +177,7 @@ def student_form():
         mother_mail = request.form.get("mother_mail")
         father_occupation = request.form.get("father_occupation")
         mother_occupation = request.form.get("mother_occupation")
-        profile = request.form.get("profile")
+        profile = request.files["image"]
         nationality = request.form.get("nationality")
 
         new_student = Student(
@@ -186,9 +187,6 @@ def student_form():
             mobile=mobile,
             course=course,
             branch=branch,
-
-           
-
             caste=caste,
             eamcet_rank=eamcet_rank,
             bank=bank,
@@ -204,13 +202,13 @@ def student_form():
             mother_mail=mother_mail,
             father_occupation=father_occupation,
             mother_occupation=mother_occupation,
-            profile=profile,
+            profile=profile.read(),
             nationality=nationality
         )
 
         db.session.add(new_student)
         db.session.commit()
-        return redirect(url_for("student-form"))
+        return redirect(url_for("student_form"))
 
     return render_template("student_form.html")
 
@@ -224,7 +222,7 @@ def emp_form():
             password = request.form.get("password"),
             department = request.form.get("department"),
             qualification = request.form.get("qualification"),
-            gender = request.form.get("gender")
+            gender = request.form.get("gender"),
         )
         db.session.add(new_emp)
         db.session.commit()
