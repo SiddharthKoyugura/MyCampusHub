@@ -2,7 +2,8 @@ from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
 from functools import wraps
-from werkzeug.utils import secure_filename
+from io import BytesIO
+from PyPDF2 import PdfReader
 
 
 app = Flask(__name__)
@@ -67,7 +68,7 @@ class Employee(UserMixin, db.Model):
 class Notes(db.Model):
     __tablename__ = "notes"
     nid = db.Column(db.Integer, primary_key=True)
-    sub_id = db.Column(db.Integer, nullable=False)
+    sub_name = db.Column(db.Text, nullable=False)
     notes = db.Column(db.Text, unique=False, nullable=False)
 
 with app.app_context():
@@ -117,7 +118,7 @@ def add_attendance():
 def add_notes():
     if request.method == "POST":
         new_notes = Notes(
-            sub_id=int(request.form.get("sub_id")),
+            sub_name=request.form.get("sub_name"),
             notes=request.files["notes"].read()
         )
         db.session.add(new_notes)
@@ -127,7 +128,23 @@ def add_notes():
 
 @app.route("/notes")
 def notes():
-    return render_template("notes.html")
+    notes = Notes.query.all()
+    return render_template("notes.html", notes=notes)
+
+@app.route("/download-notes/<int:nid>")
+def download_notes(nid):
+    notes = db.session.get(Notes, nid)
+    buffer = BytesIO()
+    buffer.write(notes.notes)
+    pdf_reader = PdfReader(buffer)
+    headers = {
+        'Content-Disposition': f'attachment; filename={notes.sub_name}.pdf',
+        'Content-Type': 'application/pdf'
+    }
+    # Return the PDF file as a Flask response
+    response = make_response(pdf_reader.pages[0].extract_text())
+    response.headers = headers
+    return response
 
 # Student
 @app.route("/student-form", methods=["GET", "POST"])
