@@ -1,10 +1,48 @@
 {% include "header.html" %}
  
-   
-    <h2 style="text-align:center">User Profile Card</h2>
-<div class="wrapper">
+   <style>
+    .sid{
+        margin-top: 10rem !important;
+    }
+   </style>
+<div class="wrapper mt-1 sid">
     <div class="left">
-        <img src="{{ url_for('static', filename='images/MANAV.jpg') }}" alt="user" width="200">
+        <img src="{{ url_for('profile_image', sid=student.sid) }}" alt="user" width="200">
+        <h4>{{ student.name }}</h4>
+         <p>{{ student.branch }}</p>
+    </div>
+    <div class="right">
+        <div class="info">
+            <h3>PERSONAL DETAILS</h3>
+            <div class="info_data">
+                 <div class="data">
+                    <h1>Attendance</h1>
+                    <p>{{ student.attendance_percent }}</p>
+                    <h4>FULL NAME</h4>
+                    <p>{{ student.name }}</p>
+                    <h4>Email</h4>
+                    <p>{{ student.email }}</p>
+                    <h4>Phone</h4>
+                    <p>{{ student.mobile }}</p>
+                    <h4>ROLL NO</h4>
+                    <p>{{ student.sid }}</p>
+                 </div>
+                 <div class="data">
+                   <h4>COURSE</h4>
+                    <p>B-TECH</p>
+                    <h4>BRANCH</h4>
+                    <p>{{ student.branch }}</p>
+                    <h4>Phone</h4>
+                    <p>{{ student.father_mobile }}</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="wrapper mt-1 sid">
+    <div class="left">
+        <img src="{{ url_for('profile_image', sid=student.sid) }}" alt="user" width="200">
         <h4>MANAV BHARATHIYA</h4>
          <p>AI-ML-B</p>
     </div>
@@ -39,330 +77,7 @@
       
 
     </div>
-</div>
-</body>
-</html>
+</div> -->
 
-                                <td>password</td>
-                                
-                                <td><input type="password" name="password"/></td>
-                                
-                            </tr>
-                            
-                                
-                            <tr>
-                                <td>MOBILE NO:</td>
-                                <td>
-                                    <input
-                                        type="tel"
-                                        name="mobile"
-                                        size="30"
-                                        maxlength="12"
-                                        placeholder="Enter Mobile no"
-                                    />
-                                    (10 digits number)
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>COURSE:</td>
-                                <td>
-                                    <select id="cars" name="cars" >
-                                      <option value="AI-ML">AI-ML</option>
-                                      <option value="DS">DS</option>
-                                      <option value="CSE">CSE</option>
-                                      <option value="ECE">ECE</option>
-                                      <option value="MECHANICAL">MECHANICAL</option>
-                                      
-                                    </select>
-                                        
-                                        
-                                
-                                    
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BRANCH:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="branch"
-                                        size="30"
-                                        maxlength="12"
-                                        
-                                    />
-                                   
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CASTE:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="caste"
-                                        size="30"
-                                        maxlength="12"
-                                        
-                                    />
-                                    
-                                </td>
-                            </tr>
-                            
-                                <tr>
-                                    <td>EAMCET RANK:</td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            name="eamcet_rank"
-                                            size="30"
-                                            maxlength="12"
-                                            placeholder="Enter Eamcet rank"
-                                        />
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PROFILE:</td>
-                                    <td>
-                                        <input
-                                            type="file"
-                                            name="image"
-                                            size="30"
-                                            maxlength="30"
-                                            accept="image/x-png,image/gif,image/jpeg,image/jpg,image/png"
-                                        />
-                                       
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>BANK:</td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            name="bank"
-                                            size="30"
-                                            maxlength="30"
-                                            
-                                        />
-                                      
-                                    </td>
-                                <tr>
-                                    <tr>
-                                        <td>AADHAAR NO:</td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                name="aadhar"
-                                                size="30"
-                                                maxlength="12"
-                                                                                         />
-                                           
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>RATION CARD:</td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                name="ration_card"
-                                                size="30"
-                                                maxlength="12"
-                                            />
-                                           
-                                        </td>
-                                    </tr>
-                            <tr>
-                                <td>ADDRESS:</td>
-                                <td>
-                                    <textarea name="address" rows="4" cols="40" id="comments">
-                                    </textarea>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <td>CITY:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="city"
-                                        size="30"
-                                        maxlength="30"
-                                        placeholder="Enter your city name"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>PIN CODE:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="pin"
-                                        size="30"
-                                        maxlength="30"
-                                        placeholder="Enter pin code"
-                                    />
-                                    (6 digits number)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>STATE:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="state"
-                                        size="30"
-                                        maxlength="30"
-                                        placeholder="Enter your state name"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>COUNTRY:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="COUNTRY"
-                                        size="30"
-                                        maxlength="30"
-                                        placeholder="Enter your city name"
-                                    />
-                                </td>
-                            </tr> -->
-                            <tr>
-                                <td>FATHER'S NAME:</td>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="father_name"
-                                        size="30"
-                                        maxlength="30"
-                                        
-                                    />
-                                    (max 30 characters A-Z and a-z)
-                                </td>
-                            </tr>
-                                <tr>
-                                    <td>MOTHER'S NAME:</td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            name="mother_name"
-                                            size="30"
-                                            maxlength="30"
-                                            
-                                        />
-                                        (max 30 characters A-Z and a-z)
-                                    </td>
-                                </tr>
-                                    <tr>
-                                        <td>FATHER MOBILE:</td>
-                                        <td>
-                                            <input
-                                                type="tel"
-                                                name="father_mobile"
-                                                size="30"
-                                                maxlength="12"
-                                                placeholder="Enter Mobile no"
-                                            />
-                                            (10 digits number)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>MOTHER MOBILE:</td>
-                                        <td>
-                                            <input
-                                                type="tel"
-                                                name="mother_mobile"
-                                                size="30"
-                                                maxlength="12"
-                                                placeholder="Enter Mobile no"
-                                            />
-                                            (10 digits number)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>ANNUAL INCOME:</td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                name="annual_income"
-                                                size="30"
-                                                maxlength="12"
-                                                                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FATHER MAIL:</td>
-                                        <td>
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                name="father_mail"
-                                                size="30"
-                                                maxlength="100"
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>MOTHER MAIL:</td>
-                                        <td>
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                name="mother_mail"
-                                                size="30"
-                                                maxlength="100"
-                                            />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FATHER'S OCCUPATION:</td>
-                                        <td>
-                                            <input
-                                                type="text"
-                                                name="father_occupation"
-                                                size="30"
-                                                maxlength="30"
-                                                
-                                            />
-                                        
-                                        </td>
-                                    </tr>
-                                        <tr>
-                                            <td>MOTHER'S OCCUPATION:</td>
-                                            <td>
-                                                <input
-                                                    type="text"
-                                                    name="mother_occupation"
-                                                    size="30"
-                                                    maxlength="30"
-                                                    
-                                                />
-                                               
-                                            </td>
-                                        </tr>
-                                            <tr>
-                                                <td>NATIONALITY:</td>
-                                                <td>
-                                                <select name="nationality">
-                                                    <option value="">-- select one --</option>
-                                                    <option value="indian">Indian</option>
-                                                    <option value="indian">Non Residential Indian(NRI)</option>
-                                                  </select>
-                                                </td>
-                                            </tr>
-                                        <tr>
-                                            <td>
-                                                
-                                                    <input type="submit" value="Submit" style="height: 50px;width: 250px;line-height: 20px;">
-                                                
-                                           
-                                            </td>
-                                        </tr>
-                                        </table>
-                                            </form>
-                                    </div>
-                                </div>
-  </div> 
-</form>
+   
 {% include "footer.html" %}

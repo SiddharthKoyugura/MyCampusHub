@@ -1,5 +1,11 @@
 {% include "header.html" %}
-
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="font-size: 10px; color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 <div class ="rid">
     <div class="login-card">
               <div class="card-header">

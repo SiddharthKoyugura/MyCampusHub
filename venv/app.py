@@ -23,6 +23,7 @@ login_manager.init_app(app)
 
 # Global variables
 mark_list = []
+id = 100
 class Student(UserMixin, db.Model):
     __tablename__ = "students"
     sid = db.Column(db.Integer, primary_key=True)
@@ -52,6 +53,9 @@ class Student(UserMixin, db.Model):
     nationality = db.Column(db.Text, nullable=True)
     attendance_percent = db.Column(db.Integer, nullable=True)
 
+    def get_id(self):
+        return self.sid
+
 class Employee(UserMixin, db.Model):
     __tablename__ = "employees"
     eid = db.Column(db.Integer, primary_key=True)
@@ -62,7 +66,9 @@ class Employee(UserMixin, db.Model):
     department = db.Column(db.Text, nullable=True)
     qualification = db.Column(db.Text, nullable=True)
     gender = db.Column(db.Text, nullable=True)
-
+    is_emp=db.Column(db.Text, nullable=False)
+    def get_id(self):
+        return self.eid
 
 class Notes(db.Model):
     __tablename__ = "notes"
@@ -110,7 +116,7 @@ def stud_only(f):
 
 @login_manager.user_loader
 def load_user(user_id):
-    if not is_emp():
+    if Student.query.get(user_id):
         return Student.query.get(user_id)
     else:
         return Employee.query.get(user_id)
@@ -121,13 +127,12 @@ def home():
     return render_template("home.html", logged_in=current_user.is_authenticated)
 
 # Attendance section
-@app.route("/attendance")
+@app.route("/about")
 @stud_only
-def attendance():
+def about():
     return render_template("attendance.html", logged_in=current_user.is_authenticated)
 
 @app.route("/add_attendance", methods=["GET", "POST"])
-@emp_only
 def add_attendance():
     today = date.today()
     def total_days():
@@ -156,7 +161,6 @@ def add_attendance():
 
 # Notes routes
 @app.route("/add-notes", methods=["GET", "POST"])
-@emp_only
 def add_notes():
     if request.method == "POST":
         new_notes = Notes(
@@ -257,29 +261,37 @@ def stu():
             pwd = request.form.get("pwd")
             if user.password == pwd:
                 login_user(user)
-                return redirect(url_for("home"))
+                return redirect(url_for("profile"))
             flash("Invalid Password")
-            return redirect(url_for("login"))
+            return redirect(url_for("home"))
         flash("User not exists")
-        return redirect(url_for("login"))
 
 @app.route("/profile")
-@stud_only
 def profile():
-    return render_template("profile.html", logged_in=current_user.is_authenticated)
+    student = Student.query.get(current_user.sid)
+    return render_template("profile.html", student=student, logged_in=current_user.is_authenticated)
+ 
+@app.route("/profile/<int:sid>")
+def profile_image(sid):
+    gallery_row = Student.query.get(sid)
+    image = gallery_row.profile
+    return app.response_class(image, mimetype="application/octet-stream")
 
 # Employee
 @app.route("/emp-form", methods=["GET", "POST"])
 def emp_form():
+    global id
+    id=id+1
     if request.method=="POST":
         new_emp = Employee(
-            sub_id = request.form.get("sub_id"),
+            sub_id = int(request.form.get("subject")),
             name = request.form.get("name"),
             email = request.form.get("email"),
             password = request.form.get("password"),
             department = request.form.get("department"),
             qualification = request.form.get("qualification"),
             gender = request.form.get("gender"),
+            is_emp="True",
         )
         db.session.add(new_emp)
         db.session.commit()
@@ -293,23 +305,24 @@ def emp():
         email = request.form.get("email")
         user = Employee.query.filter_by(email=email).first()
         if user:
-            password = request.form.get("password")
+            password = request.form.get("pwd")
+            print(password)
             if user.password == password:
                 login_user(user)
-                return redirect(url_for("home"))
+                return redirect(url_for("add_attendance"))
 
             flash("Invalid password")
-            return redirect(url_for("login"))
+            return redirect(url_for("home"))
 
         flash("User not registered with email!")
-        return redirect(url_for("login"))
+        return redirect(url_for("home"))
     return redirect(url_for("home"))
     # return render_template("login.html", logged_in=current_user.is_authenticated)
 
 @app.route("/logout")
 @login_required
 def logout():
-    logout_user(current_user)
+    logout_user()
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
