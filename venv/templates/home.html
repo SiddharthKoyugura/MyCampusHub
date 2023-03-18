@@ -10,20 +10,17 @@
                    
                   <div class="log">EMPLOYEE LOGIN</div>
                 </div>
-                <form>
+                <form action="{{ url_for('emp') }}" method="post">
                   <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input required="" name="username" id="username" type="text">
+                    <label for="username">Email:</label>
+                    <input required="" name="email" id="username" type="text">
                   </div>
                   <div class="form-group">
                     <label for="password">Password:</label>
-                    <input required="" name="password" id="password" type="password">
+                    <input required="" name="pwd" id="password" type="password">
                   </div>
                   <div class="form-group">
                     <input value="Login" type="submit" style="height:60px;">
-                  </div>
-                  <div class="buttans">
-                    <a href="#">forgot your password?</a>
                   </div>
                 </form>
     </div>
@@ -38,22 +35,18 @@
           </div>
           <div class="log"> STUDENT LOGIN</div>
         </div>
-        <form>
+        <form action="{{ url_for('stu') }}" method="post">
           <div class="form-groups">
-            <label for="username">Username:</label>
-            <input required="" name="username" id="username" type="text">
+            <label for="username">Email:</label>
+            <input required="" name="email" id="username" type="email">
           </div>
           <div class="form-groups">
             <label for="password">Password:</label>
-            <input required="" name="password" id="password" type="password">
+            <input required="" name="pwd" id="password" type="password">
           </div>
           <div class="form-groups">
             <input value="Login" type="submit"style="height:60px;">
-
           </div>
-          <div class="buttans">
-            <a href="#">forgot your password?</a>
-          
         </form>
     </div>
 </div>
