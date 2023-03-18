@@ -58,32 +58,35 @@
       <nav  id= mynavbar class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('home') }}">
-              <img src="https://img.freepik.com/free-vector/academic-excellence-illustration_24877-52355.jpg?w=740&t=st=1678798925~exp=1678799525~hmac=1c16bb2551ce3cb6824f2e9fa5375ded38ed4ec58b895871a4ba15ec6e6b2907g" alt="Bootstrap" width="100">
+              <!-- <img src="https://img.freepik.com/free-vector/academic-excellence-illustration_24877-52355.jpg?w=740&t=st=1678798925~exp=1678799525~hmac=1c16bb2551ce3cb6824f2e9fa5375ded38ed4ec58b895871a4ba15ec6e6b2907g" alt="Bootstrap" width="100"> -->
+              <h1>MyCampusHub</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#marks">MARKS</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#timetable">TIMETABLE</a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('notes') }}">NOTES</a>
-                </li>
-                
+                {% if logged_in: %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="#timetable">TIMETABLE</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" >ABOUT</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('notes') }}">NOTES</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_attendance') }}">ADD-ATTENDANCE</a>
+                  </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
+                    </li>
+                {% endif %}
               </ul>
-              <!-- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form> -->
             </div>
           </div>
     </nav>
